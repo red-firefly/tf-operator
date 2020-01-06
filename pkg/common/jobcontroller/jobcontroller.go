@@ -26,6 +26,7 @@ import (
 	"k8s.io/client-go/util/workqueue"
 	"k8s.io/kubernetes/pkg/controller"
 
+	tfv1 "github.com/kubeflow/tf-operator/pkg/apis/tensorflow/v1"
 	"github.com/kubeflow/tf-operator/pkg/control"
 )
 
@@ -219,6 +220,13 @@ func (jc *JobController) SyncPodGroup(job metav1.Object, minAvailableReplicas in
 
 	// create podGroup for gang scheduling by kube-batch
 	minAvailable := intstr.FromInt(int(minAvailableReplicas))
+	priorityClassName := ""
+	if tfjob, ok := job.(tfv1.TFJob); ok {
+		for _, spec := range tfjob.Spec.TFReplicaSpecs {
+			priorityClassName = spec.Template.Spec.PriorityClassName
+			break
+		}
+	}
 	createPodGroup := &v1alpha1.PodGroup{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: job.GetName(),
@@ -229,6 +237,9 @@ func (jc *JobController) SyncPodGroup(job metav1.Object, minAvailableReplicas in
 		Spec: v1alpha1.PodGroupSpec{
 			MinMember: minAvailable.IntVal,
 		},
+	}
+	if priorityClassName != nil && priorityClassName != "" {
+		createPodGroup.Spec.PriorityClassName = priorityClassName
 	}
 	return kubeBatchClientInterface.SchedulingV1alpha1().PodGroups(job.GetNamespace()).Create(createPodGroup)
 }
