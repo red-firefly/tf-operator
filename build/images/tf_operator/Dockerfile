@@ -5,6 +5,7 @@ ENV SRC_PATH github.com/kubeflow/tf-operator
 WORKDIR ${GOPATH}/src/${SRC_PATH}
 COPY . ${GOPATH}/src/${SRC_PATH}
 RUN go install -ldflags '-X ${SRC_PATH}/pkg/version.Version=${VERSION}' ${SRC_PATH}/cmd/tf-operator.v1
+# RUN go install ${SRC_PATH}/cmd/tf-operator.v1
 
 FROM registry.access.redhat.com/ubi8-dev-preview/ubi:latest
 
@@ -19,7 +20,7 @@ RUN if [ "$(uname -m)" = "ppc64le" ]; then \
 
 # # TODO(jlewi): We should probably change the directory to /opt/kubeflow.
 # RUN mkdir -p /opt/tensorflow_k8s/dashboard/
-# RUN mkdir -p /opt/kubeflow/samples
+RUN mkdir -p /opt/kubeflow/samples
 
 # COPY tf_smoke.py /opt/kubeflow/samples/
 # RUN chmod a+x /opt/kubeflow/samples/*
@@ -29,7 +30,7 @@ COPY --from=builder /go/bin/tf-operator.v1 /opt/kubeflow
 # COPY build /opt/tensorflow_k8s/dashboard/frontend/build
 
 # RUN chmod a+x /opt/kubeflow/tf-operator.v1beta2
-RUN chmod a+x /opt/kubeflow/tf-operator.v1
+RUN ls -lh /opt/kubeflow && chmod a+x /opt/kubeflow/tf-operator.v1
 # RUN chmod a+x /opt/tensorflow_k8s/dashboard/backend
 
 ENTRYPOINT ["/opt/kubeflow/tf-operator.v1"]
