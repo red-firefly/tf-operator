@@ -437,7 +437,12 @@ func (tc *TFController) reconcileTFJobs(tfjob *tfv1.TFJob) error {
 
 	if tc.Config.EnableGangScheduling {
 		minAvailableReplicas := getTotalReplicas(tfjob)
-		_, err := tc.SyncPodGroup(tfjob, minAvailableReplicas)
+		priorityClassName := ""
+		for _, spec := range tfjob.Spec.TFReplicaSpecs {
+			priorityClassName = spec.Template.Spec.PriorityClassName
+			break
+		}
+		_, err := tc.SyncPodGroup(tfjob, minAvailableReplicas, priorityClassName)
 		if err != nil {
 			logger.Warnf("Sync PodGroup %v: %v", tfjob.Name, err)
 		}
