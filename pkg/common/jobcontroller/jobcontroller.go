@@ -208,10 +208,6 @@ func (jc *JobController) GenLabels(jobName string) map[string]string {
 	}
 }
 
-func (jc *JobController) SyncPodGroup(job metav1.Object, minAvailableReplicas int32) (*v1alpha1.PodGroup, error) {
-	return jc.SyncPodGroup(job, minAvailableReplicas, "" /* priorityClassName */)
-}
-
 func (jc *JobController) SyncPodGroup(job metav1.Object, minAvailableReplicas int32, priorityClassName string) (*v1alpha1.PodGroup, error) {
 
 	kubeBatchClientInterface := jc.KubeBatchClientSet
