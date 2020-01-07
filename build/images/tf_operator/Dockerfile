@@ -1,4 +1,4 @@
-FROM golang:1.8.3 AS builder
+FROM golang:1.9 AS builder
 
 ARG VERSION
 ENV SRC_PATH github.com/kubeflow/tf-operator
