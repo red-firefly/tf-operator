@@ -226,17 +226,19 @@
   version = "v1.0.1"
 
 [[projects]]
-  digest = "1:680c0fba95a0cff934e350b1ad6774d8229378a3e37d9902e07e2861e82a5908"
+  digest = "1:4a6413d5b40b7c1ac13e0baf5864cd91dffb1b48ff4b501f10416ceac8eee133"
   name = "github.com/kubernetes-sigs/kube-batch"
   packages = [
     "pkg/apis/scheduling/v1alpha1",
+    "pkg/apis/scheduling/v1alpha2",
     "pkg/client/clientset/versioned",
     "pkg/client/clientset/versioned/scheme",
     "pkg/client/clientset/versioned/typed/scheduling/v1alpha1",
+    "pkg/client/clientset/versioned/typed/scheduling/v1alpha2",
   ]
   pruneopts = "NUT"
-  revision = "b0dbd4f2df590237cecee48f463bfb8746cfa357"
-  version = "v0.3"
+  revision = "010ef715f248f163b374f3acfa850a6f9e57b9ae"
+  version = "0.5.0"
 
 [[projects]]
   branch = "master"
