@@ -4,7 +4,7 @@ ARG VERSION
 ENV SRC_PATH github.com/kubeflow/tf-operator
 WORKDIR ${GOPATH}/src/${SRC_PATH}
 COPY . ${GOPATH}/src/${SRC_PATH}
-RUN go install -ldflags '-X ${SRC_PATH}/pkg/version.Version=${VERSION}' ${SRC_PATH}/cmd/tf-operator.v1
+RUN go install -ldflags '-X ${SRC_PATH}/pkg/version.Version=${VERSION}' ${SRC_PATH}/cmd/tf-operator.v1 && ls -lh ${GOPATH}/bin
 # RUN go install ${SRC_PATH}/cmd/tf-operator.v1
 
 FROM registry.access.redhat.com/ubi8-dev-preview/ubi:latest
