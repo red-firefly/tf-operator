@@ -8,14 +8,14 @@ RUN go install -ldflags '-X ${SRC_PATH}/pkg/version.Version=${VERSION}' ${SRC_PA
 
 FROM debian:10
 
-ARG GOLANG_VERSION=1.8.3
-ENV GOROOT=/usr/local/go PATH=$PATH:/usr/local/go/bin
+# ARG GOLANG_VERSION=1.8.3
+# ENV GOROOT=/usr/local/go PATH=$PATH:/usr/local/go/bin
 
-RUN if [ "$(uname -m)" = "ppc64le" ]; then \
-        curl -fksSL https://dl.google.com/go/go$GOLANG_VERSION.linux-ppc64le.tar.gz | tar -xz -C /usr/local/; \
-    else \
-        curl -fksSL https://dl.google.com/go/go$GOLANG_VERSION.linux-amd64.tar.gz | tar -xz -C /usr/local/; \
-    fi
+# RUN if [ "$(uname -m)" = "ppc64le" ]; then \
+#         curl -fksSL https://dl.google.com/go/go$GOLANG_VERSION.linux-ppc64le.tar.gz | tar -xz -C /usr/local/; \
+#     else \
+#         curl -fksSL https://dl.google.com/go/go$GOLANG_VERSION.linux-amd64.tar.gz | tar -xz -C /usr/local/; \
+#     fi
 
 # # TODO(jlewi): We should probably change the directory to /opt/kubeflow.
 # RUN mkdir -p /opt/tensorflow_k8s/dashboard/
