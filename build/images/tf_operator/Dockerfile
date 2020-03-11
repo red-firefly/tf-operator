@@ -6,7 +6,7 @@ WORKDIR ${GOPATH}/src/${SRC_PATH}
 COPY . ${GOPATH}/src/${SRC_PATH}
 RUN go install -ldflags '-X ${SRC_PATH}/pkg/version.Version=${VERSION}' ${SRC_PATH}/cmd/tf-operator.v1 && ls -lh ${GOPATH}/bin
 
-FROM registry.access.redhat.com/ubi8-dev-preview/ubi:latest
+FROM debian:10
 
 ARG GOLANG_VERSION=1.8.3
 ENV GOROOT=/usr/local/go PATH=$PATH:/usr/local/go/bin
