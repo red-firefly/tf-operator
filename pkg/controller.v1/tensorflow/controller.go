@@ -442,7 +442,7 @@ func (tc *TFController) reconcileTFJobs(tfjob *tfv1.TFJob) error {
 			priorityClassName = spec.Template.Spec.PriorityClassName
 			break
 		}
-		_, err := tc.SyncPodGroup(tfjob, minAvailableReplicas, priorityClassName)
+		_, err := tc.SyncPodGroup(tfjob, minAvailableReplicas, priorityClassName, tfjob.Spec.Queue)
 		if err != nil {
 			logger.Warnf("Sync PodGroup %v: %v", tfjob.Name, err)
 		}

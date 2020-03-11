@@ -69,6 +69,10 @@ type TFJobSpec struct {
 	//     "Worker": ReplicaSpec,
 	//   }
 	TFReplicaSpecs map[TFReplicaType]*common.ReplicaSpec `json:"tfReplicaSpecs"`
+
+	// Defines the queue to allocate resource for TFJob. If not specified will use "default" queue.
+	// +optional
+	Queue string `json:"queue,omitempty"`
 }
 
 // TFReplicaType is the type for TFReplica. Can be one of: "Chief"/"Master" (semantically equivalent),
